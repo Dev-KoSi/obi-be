@@ -9,7 +9,12 @@ const sendMessage = async (req, res) => {
 
         const receiverId = user ? user._id : null;
 
-        if(!receiverId) return;
+        if(!receiverId) {
+            return res.status(400).json({
+                success : false,
+                prompt : `Sorry, friend doesn't exist.`
+            })
+        };
 
         const newMessage = await Message.create({
             message : message,
